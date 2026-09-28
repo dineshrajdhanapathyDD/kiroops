@@ -1,13 +1,8 @@
 {
-    "campaignId":  "kiro-university-2026",
-    "participantId":  "5438a458-5091-7061-312f-62b355189636",
-    "lessons":  [
-
-                ],
-    "surfaces":  [
-
-                 ],
-    "notes":  {
-
-              }
+  "campaignId": "kiro-university-2026",
+  "participantId": "5438a458-5091-7061-312f-62b355189636",
+  "lessons": [],
+  "surfaces": [],
+  "notes": {},
+  "repoUrl": "https://github.com/dineshrajdhanapathyDD/kiroops"
 }
