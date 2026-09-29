@@ -1,0 +1,17 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Test on change (backend)",
+      "trigger": "PostFileSave",
+      "matcher": "backend/.*\\.py$",
+      "description": "Runs the backend test suite (pytest, including Hypothesis property tests) whenever a backend Python file changes, so regressions surface immediately.",
+      "action": {
+        "type": "command",
+        "command": "py -m pytest -q",
+        "cwd": "backend",
+        "timeout": 180
+      }
+    }
+  ]
+}

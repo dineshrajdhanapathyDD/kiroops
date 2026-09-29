@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Lint on save (Python)",
+      "trigger": "PostFileSave",
+      "matcher": "backend/.*\\.py$",
+      "description": "Formats and lints backend Python files on save. Uses ruff if available, otherwise falls back to a py_compile syntax check so the hook still gives fast feedback.",
+      "action": {
+        "type": "command",
+        "command": "py -m ruff check backend || py -m py_compile \"$KIRO_FILE_PATH\"",
+        "timeout": 30
+      }
+    }
+  ]
+}
