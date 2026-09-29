@@ -20,6 +20,12 @@ dev = [
     "hypothesis>=6.100",
     "httpx>=0.27",
 ]
+# Optional: enables the real Amazon Bedrock (Nova) LLM provider for live
+# diagnosis. Not part of the core dependencies so the backend and its tests run
+# without boto3 installed.
+bedrock = [
+    "boto3>=1.34",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]

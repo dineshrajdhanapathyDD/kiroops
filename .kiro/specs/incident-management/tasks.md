@@ -164,12 +164,12 @@ Each task references the requirements and/or design properties it implements. Ta
 - [x] 11. Checkpoint - Ensure all backend tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ]* 12. Real LLM provider integration (optional / later)
-  - [ ]* 12.1 Implement Bedrock/Anthropic-backed LlmProvider
+- [x]* 12. Real LLM provider integration (optional / later)
+  - [x]* 12.1 Implement Bedrock/Anthropic-backed LlmProvider
     - Build a concrete `LlmProvider` from `LlmConfig` (model id + endpoint); map network/service errors to `LlmUnavailableError`
     - _Requirements: 4.2, 4.5, 4.6_
 
-  - [ ]* 12.2 Write smoke test for provider construction from config
+  - [x]* 12.2 Write smoke test for provider construction from config
     - Assert provider is constructed with configured model/endpoint; error paths raise `LlmUnavailableError` (mock transport)
     - _Requirements: 4.5, 4.6_
 
