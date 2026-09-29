@@ -15,7 +15,7 @@ from __future__ import annotations
 import re
 from datetime import datetime, timezone
 
-from hypothesis import given, settings
+from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
 from backend.domain.models import Severity
@@ -25,15 +25,25 @@ from backend.repository.incident_repository import IncidentRepository
 _ID_PATTERN = re.compile(r"^INC-\d{4,}$")
 
 # A single creation input: (title, severity, service). Titles/services are kept
-# non-empty since id generation does not depend on their content.
+# non-empty but drawn from a small ASCII alphabet with a short max length: the id
+# invariant under test does not depend on their content, so cheap values give
+# full coverage while keeping per-example input generation inexpensive.
+_SHORT_TEXT = st.text(
+    alphabet=st.characters(min_codepoint=97, max_codepoint=122),  # a-z
+    min_size=1,
+    max_size=5,
+)
 _CREATION = st.tuples(
-    st.text(min_size=1, max_size=20),
+    _SHORT_TEXT,
     st.sampled_from(list(Severity)),
-    st.text(min_size=1, max_size=20),
+    _SHORT_TEXT,
 )
 
 
-@settings(max_examples=100)
+# ``too_slow`` is suppressed because input-generation timing is environment
+# sensitive on newer Hypothesis builds; the property itself is cheap and the
+# generators above are intentionally minimal.
+@settings(max_examples=100, suppress_health_check=[HealthCheck.too_slow])
 @given(creations=st.lists(_CREATION, min_size=1, max_size=25))
 def test_ids_are_well_formed_unique_and_monotonic(
     creations: list[tuple[str, Severity, str]],

@@ -69,9 +69,13 @@ def connect(db_path: str | None = None) -> sqlite3.Connection:
     - Foreign-key enforcement is enabled (``PRAGMA foreign_keys=ON``); SQLite
       requires this per-connection.
     - Rows are returned as ``sqlite3.Row`` for name-based access.
+    - ``check_same_thread=False`` so the connection can be used from FastAPI's
+      threadpool (sync endpoints run in worker threads). The service layer owns
+      transactions and callers use a single connection, so cross-thread use is
+      safe here.
     """
     path = get_db_path() if db_path is None else db_path
-    conn = sqlite3.connect(path)
+    conn = sqlite3.connect(path, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn

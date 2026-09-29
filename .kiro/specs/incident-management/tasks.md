@@ -100,24 +100,24 @@ Each task references the requirements and/or design properties it implements. Ta
     - Whitespace-only title rejected (Req 1.6); non-enum severity rejected (Req 1.7); invalid/backward transition leaves status unchanged (Req 3.3)
     - _Requirements: 1.6, 1.7, 3.3, 3.4_
 
-- [ ] 7. Backend API layer and error handling
-  - [~] 7.1 Implement request/response models
+- [x] 7. Backend API layer and error handling
+  - [x] 7.1 Implement request/response models
     - Implement `CreateIncidentRequest`, `IncidentResponse`, `IncidentSummary`, `TimelineEventModel`, `IncidentDetailResponse`, `UpdateStatusRequest`, `DiagnosisResponse`, `RemediationActionModel`
     - _Requirements: 1.1, 2.1, 2.2, 3.1, 4.2, 5.1, 5.3_
 
-  - [~] 7.2 Implement incident endpoints (create, list, get)
+  - [x] 7.2 Implement incident endpoints (create, list, get)
     - `POST /incidents`, `GET /incidents`, `GET /incidents/{id}` wired to IncidentService
     - _Requirements: 1.1, 2.1, 2.2, 2.3_
 
-  - [~] 7.3 Implement status endpoint and error envelope mapping
+  - [x] 7.3 Implement status endpoint and error envelope mapping
     - `PATCH /incidents/{id}/status`; map errors to the envelope and codes: 422 title/severity/unknown-status, 404 unknown id, 409 invalid/backward transition
     - _Requirements: 1.6, 1.7, 2.3, 3.3, 3.4, 7.4_
 
-  - [ ]* 7.4 Write integration tests for incident endpoints and error table
+  - [x]* 7.4 Write integration tests for incident endpoints and error table
     - Test each row of the error handling table returns the correct HTTP status and envelope; assert state unchanged on validation/transition failures
     - _Requirements: 1.6, 1.7, 2.3, 3.3, 3.4_
 
-- [~] 8. Checkpoint - Ensure all tests pass
+- [x] 8. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 9. MCP_Server with simulated evidence tools
