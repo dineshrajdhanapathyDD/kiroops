@@ -1,0 +1,8 @@
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Local SQLite database files
+*.db
