@@ -120,16 +120,16 @@ Each task references the requirements and/or design properties it implements. Ta
 - [x] 8. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. MCP_Server with simulated evidence tools
-  - [~] 9.1 Implement the four MCP tools with seeded simulated data
+- [x] 9. MCP_Server with simulated evidence tools
+  - [x] 9.1 Implement the four MCP tools with seeded simulated data
     - Implement `get_recent_logs`, `get_service_metrics`, `get_incident_history`, `search_runbook` returning the fixed output shapes from the design, generated from a per-service seed for coherent data
     - _Requirements: 4.1_
 
-  - [~] 9.2 Implement McpClient interface used by the agent
+  - [x] 9.2 Implement McpClient interface used by the agent
     - Expose a client abstraction over the four tools so the Diagnosis_Agent depends on a stable contract and can be stubbed in tests
     - _Requirements: 4.1_
 
-  - [ ]* 9.3 Write unit tests for MCP tool output shapes
+  - [x]* 9.3 Write unit tests for MCP tool output shapes
     - Assert each tool returns the documented keys/types and that seeded data is coherent across calls in a session
     - _Requirements: 4.1_
 

@@ -1,0 +1,3 @@
+# Standalone incident-mcp server dependencies.
+# The official Python MCP SDK (provides mcp.server.fastmcp.FastMCP).
+mcp>=1.2.0
