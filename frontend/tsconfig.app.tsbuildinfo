@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/statusmachine.ts","./src/types.ts","./src/vite-env.d.ts","./src/__tests__/createincidentpage.test.tsx","./src/__tests__/incidentdetailpage.test.tsx","./src/api/incidents.ts","./src/pages/createincidentpage.tsx","./src/pages/incidentdetailpage.tsx","./src/pages/incidentlistpage.tsx","./src/test/setup.ts"],"version":"5.9.3"}

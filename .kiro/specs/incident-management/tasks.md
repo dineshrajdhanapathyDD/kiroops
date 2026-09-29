@@ -173,28 +173,28 @@ Each task references the requirements and/or design properties it implements. Ta
     - Assert provider is constructed with configured model/endpoint; error paths raise `LlmUnavailableError` (mock transport)
     - _Requirements: 4.5, 4.6_
 
-- [ ]* 13. Frontend (TypeScript / React) (optional / later)
-  - [ ]* 13.1 Define shared types
+- [x]* 13. Frontend (TypeScript / React) (optional / later)
+  - [x]* 13.1 Define shared types
     - Implement `types.ts` mirroring backend models (Severity, IncidentStatus, TimelineEventType, Incident, IncidentDetail, RemediationAction, Diagnosis)
     - _Requirements: 2.4, 5.4_
 
-  - [ ]* 13.2 Implement services layer
+  - [x]* 13.2 Implement services layer
     - Implement `incidentsApi` (create, list, get, updateStatus, requestDiagnosis, getRemediationActions) with error-envelope mapping
     - _Requirements: 1.1, 2.1, 2.2, 3.1, 4.2, 5.3_
 
-  - [ ]* 13.3 Implement CreateIncidentPage
+  - [x]* 13.3 Implement CreateIncidentPage
     - Form with title, severity dropdown, service; client-side rejects empty/whitespace title; surfaces server validation errors
     - _Requirements: 1.6, 1.7_
 
-  - [ ]* 13.4 Implement IncidentListPage
+  - [x]* 13.4 Implement IncidentListPage
     - Table of incidents showing id, title, severity, service, status
     - _Requirements: 2.1_
 
-  - [ ]* 13.5 Implement IncidentDetailPage
+  - [x]* 13.5 Implement IncidentDetailPage
     - Show current status, chronological timeline, Request Diagnosis action, diagnosis, remediation actions, and valid-next-state controls
     - _Requirements: 2.2, 2.4, 5.4_
 
-  - [ ]* 13.6 Write frontend component tests
+  - [x]* 13.6 Write frontend component tests
     - Detail view renders status + chronological timeline (Req 2.4) and each remediation action (Req 5.4)
     - _Requirements: 2.4, 5.4_
 
