@@ -81,22 +81,22 @@ Each task references the requirements and/or design properties it implements. Ta
 - [x] 5. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Incident service and timeline policy
-  - [~] 6.1 Implement IncidentService create/list/get
+- [x] 6. Incident service and timeline policy
+  - [x] 6.1 Implement IncidentService create/list/get
     - Validate non-empty/non-whitespace title and enum severity; assign id via repository; set status OPEN; append "created" timeline event
     - Implement list and get-with-timeline; raise not-found for unknown id
     - _Requirements: 1.1, 1.4, 1.5, 1.6, 1.7, 2.1, 2.2, 2.3_
 
-  - [ ]* 6.2 Write property test for created incident persisted state
+  - [x]* 6.2 Write property test for created incident persisted state
     - **Property 1: Created incident is persisted with initial state**
     - Generate valid `(title, severity, service)`; create then read back; assert fields equal input, status OPEN, first timeline event is "created" with a timestamp
     - **Validates: Requirements 1.1, 1.4, 1.5**
 
-  - [~] 6.3 Implement IncidentService status update
+  - [x] 6.3 Implement IncidentService status update
     - Use `is_valid_transition`; on valid, persist new status and append "status changed" event with `{"from", "to"}`; on invalid raise transition error leaving status unchanged
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 7.4_
 
-  - [ ]* 6.4 Write unit tests for create validation and status update edge cases
+  - [x]* 6.4 Write unit tests for create validation and status update edge cases
     - Whitespace-only title rejected (Req 1.6); non-enum severity rejected (Req 1.7); invalid/backward transition leaves status unchanged (Req 3.3)
     - _Requirements: 1.6, 1.7, 3.3, 3.4_
 
