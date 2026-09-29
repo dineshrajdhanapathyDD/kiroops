@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "incident-mcp": {
+      "command": "py",
+      "args": ["mcp/incident-mcp/server.py"],
+      "disabled": false,
+      "autoApprove": [
+        "get_recent_logs",
+        "get_service_metrics",
+        "get_incident_history",
+        "search_runbook"
+      ]
+    }
+  }
+}

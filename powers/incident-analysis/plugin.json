@@ -1,0 +1,19 @@
+{
+  "name": "incident-analysis",
+  "version": "0.1.0",
+  "description": "Incident Analysis Power for KiroOps. Teaches Kiro a repeatable incident-investigation workflow (classify severity, analyze symptoms, check the runbook, produce investigation steps) and bundles the incident-mcp evidence tools.",
+  "author": "KiroOps (AWS User Group Madurai - Kiro University)",
+  "keywords": [
+    "incident",
+    "incident-analysis",
+    "diagnosis",
+    "runbook",
+    "severity",
+    "devops",
+    "sre"
+  ],
+  "skills": [
+    "skills/incident-analysis/SKILL.md"
+  ],
+  "mcp": "mcp.json"
+}
