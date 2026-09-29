@@ -55,3 +55,21 @@ class InvalidTransitionError(ServiceError):
         self.current = current
         self.target = target
         self.message = message
+
+
+class DiagnosisUnavailableError(ServiceError):
+    """The LLM_Provider was unavailable during a diagnosis request (Req 4.5).
+
+    Raised by the ``DiagnosisService`` when the agent returns a
+    diagnosis-unavailable result. When this is raised no diagnosis is persisted
+    and the incident status is left unchanged; the API layer maps it to 503.
+    """
+
+    def __init__(self, incident_id: str) -> None:
+        message = (
+            f"Diagnosis for incident '{incident_id}' is unavailable: "
+            "the LLM provider could not be reached."
+        )
+        super().__init__(message)
+        self.incident_id = incident_id
+        self.message = message

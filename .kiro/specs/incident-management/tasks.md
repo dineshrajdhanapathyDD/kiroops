@@ -133,35 +133,35 @@ Each task references the requirements and/or design properties it implements. Ta
     - Assert each tool returns the documented keys/types and that seeded data is coherent across calls in a session
     - _Requirements: 4.1_
 
-- [ ] 10. Diagnosis_Agent with injected LLM provider
-  - [~] 10.1 Define LlmProvider protocol, LlmConfig, and result types
+- [x] 10. Diagnosis_Agent with injected LLM provider
+  - [x] 10.1 Define LlmProvider protocol, LlmConfig, and result types
     - Implement `LlmProvider` Protocol with `complete`, `LlmUnavailableError`, `LlmResult`, and `DiagnosisResult`/`DiagnosisUnavailable`
     - _Requirements: 4.2, 4.5, 4.6_
 
-  - [~] 10.2 Implement DiagnosisAgent deterministic orchestration
+  - [x] 10.2 Implement DiagnosisAgent deterministic orchestration
     - Implement `_gather_evidence` (all four MCP tools), `_build_prompt`, `complete` call using configured model/endpoint, `_parse` into diagnosis + remediation actions
     - On `LlmUnavailableError` return `DiagnosisUnavailable` without producing a diagnosis
     - _Requirements: 4.1, 4.2, 4.6, 5.1_
 
-  - [ ]* 10.3 Write property test for LLM unavailability preserving status
+  - [x]* 10.3 Write property test for LLM unavailability preserving status
     - **Property 6: LLM unavailability preserves incident status**
     - Stub `LlmProvider` to fail; request diagnosis for any incident; assert result is diagnosis-unavailable and status unchanged
     - **Validates: Requirements 4.5**
 
-  - [ ]* 10.4 Write unit tests for agent orchestration success path
+  - [x]* 10.4 Write unit tests for agent orchestration success path
     - With stubbed MCP client and stub LlmProvider: assert all four tools invoked, evidence passed, diagnosis parsed, remediation actions derived, configured model/endpoint used
     - _Requirements: 4.1, 4.2, 4.6, 5.1_
 
-  - [~] 10.5 Implement DiagnosisService and diagnosis endpoints
+  - [x] 10.5 Implement DiagnosisService and diagnosis endpoints
     - Wire `POST /incidents/{id}/diagnosis`: load incident (404 if missing), append "diagnosis requested" event, invoke agent, persist diagnosis + actions, append "actions suggested" event; return 503 on unavailable with status unchanged
     - Wire `GET /incidents/{id}/remediation-actions`
     - _Requirements: 4.3, 4.4, 4.5, 5.1, 5.2, 5.3_
 
-  - [ ]* 10.6 Write integration tests for diagnosis flow
+  - [x]* 10.6 Write integration tests for diagnosis flow
     - Assert "diagnosis requested" and "actions suggested" events appended, diagnosis and actions persisted and retrievable, 503 + unchanged status on unavailable
     - _Requirements: 4.3, 4.4, 4.5, 5.2, 5.3_
 
-- [~] 11. Checkpoint - Ensure all backend tests pass
+- [x] 11. Checkpoint - Ensure all backend tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ]* 12. Real LLM provider integration (optional / later)
@@ -198,7 +198,7 @@ Each task references the requirements and/or design properties it implements. Ta
     - Detail view renders status + chronological timeline (Req 2.4) and each remediation action (Req 5.4)
     - _Requirements: 2.4, 5.4_
 
-- [~] 14. Final checkpoint - Ensure all tests pass
+- [x] 14. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

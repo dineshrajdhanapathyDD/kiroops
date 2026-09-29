@@ -11,8 +11,9 @@ Mapping (design.md error table):
     unknown status value / bad body shape -> 422 (Pydantic request validation)
     NotFoundError (unknown incident id)   -> 404
     InvalidTransitionError                -> 409 (status preserved; no write)
+    DiagnosisUnavailableError             -> 503 (status preserved; no write)
 
-Requirements: 1.6, 1.7, 2.3, 3.3, 3.4, 7.4.
+Requirements: 1.6, 1.7, 2.3, 3.3, 3.4, 4.5, 7.4.
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from backend.service.errors import (
+    DiagnosisUnavailableError,
     InvalidTransitionError,
     NotFoundError,
     ValidationError,
@@ -69,6 +71,17 @@ async def _handle_invalid_transition(
     return _json(status.HTTP_409_CONFLICT, "invalid_transition", exc.message)
 
 
+async def _handle_diagnosis_unavailable(
+    _request: Request, exc: DiagnosisUnavailableError
+) -> JSONResponse:
+    """Map a ``DiagnosisUnavailableError`` to 503; status is preserved (Req 4.5)."""
+    return _json(
+        status.HTTP_503_SERVICE_UNAVAILABLE,
+        "diagnosis_unavailable",
+        exc.message,
+    )
+
+
 async def _handle_request_validation(
     _request: Request, exc: RequestValidationError
 ) -> JSONResponse:
@@ -104,4 +117,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     app.add_exception_handler(ValidationError, _handle_validation_error)
     app.add_exception_handler(NotFoundError, _handle_not_found)
     app.add_exception_handler(InvalidTransitionError, _handle_invalid_transition)
+    app.add_exception_handler(
+        DiagnosisUnavailableError, _handle_diagnosis_unavailable
+    )
     app.add_exception_handler(RequestValidationError, _handle_request_validation)

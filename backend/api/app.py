@@ -26,15 +26,22 @@ import sqlite3
 
 from fastapi import Depends, FastAPI, status
 
+from backend.agent.default_provider import build_default_provider
+from backend.agent.diagnosis_agent import DiagnosisAgent
+from backend.agent.provider import LlmProvider
 from backend.api.errors import register_exception_handlers
 from backend.api.models import (
     CreateIncidentRequest,
+    DiagnosisResponse,
     IncidentDetailResponse,
     IncidentResponse,
     IncidentSummary,
+    RemediationActionModel,
     UpdateStatusRequest,
 )
+from backend.mcp.client import SimulatedMcpClient
 from backend.repository import db
+from backend.service.diagnosis_service import DiagnosisService
 from backend.service.incident_service import IncidentService
 
 
@@ -49,33 +56,67 @@ def get_service() -> IncidentService:
     raise RuntimeError("IncidentService dependency is not configured.")
 
 
+def get_diagnosis_service() -> DiagnosisService:
+    """Dependency placeholder for the diagnosis service; bound in ``create_app``."""
+    raise RuntimeError("DiagnosisService dependency is not configured.")
+
+
 def create_app(
     service: IncidentService | None = None,
     conn: sqlite3.Connection | None = None,
+    llm: LlmProvider | None = None,
+    diagnosis_service: DiagnosisService | None = None,
 ) -> FastAPI:
-    """Build the FastAPI app wired to an ``IncidentService``.
+    """Build the FastAPI app wired to the incident and diagnosis services.
 
-    Provide exactly one of ``service`` or ``conn``. When neither is given, a
-    connection is bootstrapped from configuration (the production default).
-    Tests pass a fresh in-memory connection or a pre-built service to isolate
-    state.
+    Provide at most one of ``service`` or ``conn``; when neither is given a
+    connection is bootstrapped from configuration (the production default). The
+    same connection backs both the ``IncidentService`` and the
+    ``DiagnosisService`` so they share one database.
+
+    The LLM boundary is injectable (per the architecture steering): pass a stub
+    ``llm`` (tests) or a full ``diagnosis_service`` to control the agent. When
+    neither is given, the default provider is built from ``LlmConfig`` and is
+    always-unavailable, so out of the box a diagnosis request returns 503 with
+    the incident status unchanged (Req 4.5) until the real provider (Task 12)
+    is wired in.
+
+    Note: when a pre-built ``service`` is passed without ``conn`` or an explicit
+    ``diagnosis_service``, its connection is reused to build the diagnosis
+    service so both services stay on the same database.
     """
     if service is not None and conn is not None:
         raise ValueError("Pass either 'service' or 'conn', not both.")
+
+    connection: sqlite3.Connection
     if service is None:
         connection = conn if conn is not None else db.bootstrap()
         service = IncidentService(connection)
+    else:
+        # Reuse the pre-built service's connection so the diagnosis service
+        # (built below when not injected) shares the same database.
+        connection = service._incidents._conn  # noqa: SLF001 (intentional reuse)
+
+    if diagnosis_service is None:
+        provider = llm if llm is not None else build_default_provider()
+        agent = DiagnosisAgent(SimulatedMcpClient(), provider)
+        diagnosis_service = DiagnosisService(connection, agent)
 
     app = FastAPI(title="KiroOps incident-management")
     app.state.incident_service = service
+    app.state.diagnosis_service = diagnosis_service
     register_exception_handlers(app)
 
     def _provide_service() -> IncidentService:
         return app.state.incident_service
 
-    # Bind the module-level dependency symbol to this app's service so routes
-    # depending on ``get_service`` resolve correctly (and stay overridable).
+    def _provide_diagnosis_service() -> DiagnosisService:
+        return app.state.diagnosis_service
+
+    # Bind the module-level dependency symbols to this app's services so routes
+    # depending on them resolve correctly (and stay overridable).
     app.dependency_overrides[get_service] = _provide_service
+    app.dependency_overrides[get_diagnosis_service] = _provide_diagnosis_service
 
     @app.post(
         "/incidents",
@@ -126,5 +167,57 @@ def create_app(
         """
         incident = svc.update_status(incident_id, body.status)
         return IncidentResponse.from_incident(incident)
+
+    @app.post(
+        "/incidents/{incident_id}/diagnosis",
+        response_model=DiagnosisResponse,
+    )
+    def request_diagnosis(
+        incident_id: str,
+        svc: DiagnosisService = Depends(get_diagnosis_service),
+    ) -> DiagnosisResponse:
+        """Request an AI diagnosis for an incident (Req 4).
+
+        404 if the id is unknown (Req 2.3); 503 diagnosis-unavailable when the
+        LLM provider fails, with the incident status left unchanged (Req 4.5).
+        On success returns the diagnosis summary, evidence references, and the
+        derived remediation actions (Req 4.2, 5.1).
+        """
+        result = svc.diagnose(incident_id)
+        return DiagnosisResponse(
+            incident_id=result.incident_id,
+            summary=result.summary,
+            evidence_refs=list(result.evidence_refs),
+            remediation_actions=[
+                RemediationActionModel(
+                    action_id=action.action_id,
+                    description=action.description,
+                    rationale=action.rationale,
+                )
+                for action in result.remediation_actions
+            ],
+        )
+
+    @app.get(
+        "/incidents/{incident_id}/remediation-actions",
+        response_model=list[RemediationActionModel],
+    )
+    def get_remediation_actions(
+        incident_id: str,
+        svc: DiagnosisService = Depends(get_diagnosis_service),
+    ) -> list[RemediationActionModel]:
+        """Return the remediation actions for an incident (Req 5.3).
+
+        404 if the incident id is unknown (Req 2.3).
+        """
+        actions = svc.list_remediation_actions(incident_id)
+        return [
+            RemediationActionModel(
+                action_id=a.action_id,
+                description=a.description,
+                rationale=a.rationale,
+            )
+            for a in actions
+        ]
 
     return app
