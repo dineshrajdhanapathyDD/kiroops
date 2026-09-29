@@ -1,0 +1,4 @@
+# file: D:\github work\KIRO university\kiroops\backend\repository\incident_repository.py
+# hypothesis_version: 6.150.0
+
+['INC-', 'created_at', 'incident_id', 'service', 'severity', 'status', 'title']

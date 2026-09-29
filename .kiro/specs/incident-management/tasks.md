@@ -43,42 +43,42 @@ Each task references the requirements and/or design properties it implements. Ta
 - [x] 3. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Repository_Layer over SQLite
-  - [~] 4.1 Implement IncidentRepository with INC-#### id generation
+- [x] 4. Repository_Layer over SQLite
+  - [x] 4.1 Implement IncidentRepository with INC-#### id generation
     - Implement `create` using `INTEGER PRIMARY KEY AUTOINCREMENT` `num`, deriving `incident_id = "INC-" + str(num).zfill(4)` inside the insert transaction
     - Add `UNIQUE` constraint enforcement on `incident_id` (defense-in-depth)
     - Implement `get`, `list`, `update_status`
     - _Requirements: 1.1, 1.2, 1.3, 2.1, 2.2, 3.1, 7.1, 7.2_
 
-  - [ ]* 4.2 Write property test for incident ID format, uniqueness, and monotonicity
+  - [x]* 4.2 Write property test for incident ID format, uniqueness, and monotonicity
     - **Property 2: Incident IDs are well-formed, unique, and monotonic**
     - Generate a sequence of N creations; assert every id matches `INC-\d{4,}`, all ids distinct, numeric portions strictly increasing in creation order
     - **Validates: Requirements 1.2, 1.3, 7.1, 7.2**
 
-  - [~] 4.3 Implement TimelineRepository (append-only)
+  - [x] 4.3 Implement TimelineRepository (append-only)
     - Implement `append` computing `seq = max(existing seq) + 1` in a transaction; no update/delete methods
     - Implement `list` ordered by `timestamp` then `seq` (earliest -> latest)
     - _Requirements: 6.1, 6.2, 6.3_
 
-  - [ ]* 4.4 Write property test for append-only timeline
+  - [x]* 4.4 Write property test for append-only timeline
     - **Property 4: Timeline is append-only**
     - Snapshot events, append a new event, assert prior events are unchanged and present and timeline grew only by the appended event
     - **Validates: Requirements 6.2**
 
-  - [ ]* 4.5 Write property test for chronological timeline ordering
+  - [x]* 4.5 Write property test for chronological timeline ordering
     - **Property 5: Timeline is returned in chronological order**
     - For any set of appended events, assert `list` returns them earliest -> latest by timestamp
     - **Validates: Requirements 2.2, 6.3**
 
-  - [~] 4.6 Implement DiagnosisRepository and RemediationRepository
+  - [x] 4.6 Implement DiagnosisRepository and RemediationRepository
     - Implement `DiagnosisRepository.save`/`get` and `RemediationRepository.save_all`/`list`
     - _Requirements: 4.4, 5.3_
 
-  - [ ]* 4.7 Write unit tests for diagnosis and remediation repositories
+  - [x]* 4.7 Write unit tests for diagnosis and remediation repositories
     - Test save/get round-trip for diagnosis and save_all/list for remediation actions
     - _Requirements: 4.4, 5.3_
 
-- [~] 5. Checkpoint - Ensure all tests pass
+- [x] 5. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. Incident service and timeline policy

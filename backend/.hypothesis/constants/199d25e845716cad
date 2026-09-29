@@ -1,0 +1,4 @@
+# file: D:\github work\KIRO university\kiroops\backend\config.py
+# hypothesis_version: 6.150.0
+
+[':memory:', 'AppConfig', 'KIROOPS_DB_PATH', 'KIROOPS_LLM_ENDPOINT', 'KIROOPS_LLM_MODEL_ID', 'LlmConfig', 'kiroops.db']
