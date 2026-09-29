@@ -1,4 +1,0 @@
-# file: D:\github work\KIRO university\kiroops\backend\repository\remediation_repository.py
-# hypothesis_version: 6.150.0
-
-['action_id', 'description', 'incident_id', 'rationale']

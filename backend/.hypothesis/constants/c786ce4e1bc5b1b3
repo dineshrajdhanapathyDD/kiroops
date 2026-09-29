@@ -1,4 +1,0 @@
-# file: C:\Users\dines\AppData\Roaming\Python\Python313\site-packages\httpx\_transports\__init__.py
-# hypothesis_version: 6.150.0
-
-['ASGITransport', 'AsyncBaseTransport', 'AsyncHTTPTransport', 'BaseTransport', 'HTTPTransport', 'MockTransport', 'WSGITransport']

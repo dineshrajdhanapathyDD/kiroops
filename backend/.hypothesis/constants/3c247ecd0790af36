@@ -1,4 +1,0 @@
-# file: C:\Users\dines\AppData\Roaming\Python\Python313\site-packages\pytest_asyncio\plugin.py
-# hypothesis_version: 6.150.0
-
-[', ', '--asyncio-mode', '127.0.0.1', 'MODE', 'Yield only once.', '_R', '_T', '__func__', '_raw_test_func', 'asyncio', 'asyncio_mode', 'auto', 'class', 'event_loop', 'funcmanage', 'function', 'hypothesis', 'ignore', 'is_hypothesis_test', 'markers', 'module', 'obj', 'package', 'request', 'session', 'strict']

@@ -6,3 +6,6 @@ __pycache__/
 
 # Local SQLite database files
 *.db
+
+# Hypothesis example database
+.hypothesis/

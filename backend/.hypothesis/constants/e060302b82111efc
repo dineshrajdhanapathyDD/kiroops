@@ -1,4 +1,0 @@
-# file: D:\github work\KIRO university\kiroops\backend\repository\timeline_repository.py
-# hypothesis_version: 6.150.0
-
-['details', 'incident_id', 'max_seq', 'seq', 'timestamp', 'type']

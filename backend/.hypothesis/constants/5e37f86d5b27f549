@@ -1,4 +1,0 @@
-# file: C:\Users\dines\AppData\Roaming\Python\Python313\site-packages\httpcore\_async\connection_pool.py
-# hypothesis_version: 6.150.0
-
-[b'http', b'socks5', b'socks5h', 'aclose', 'http', 'https', 'pool', 'timeout', 'ws', 'wss']

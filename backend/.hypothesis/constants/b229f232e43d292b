@@ -1,4 +1,0 @@
-# file: C:\Users\dines\AppData\Roaming\Python\Python313\site-packages\httpcore\_async\__init__.py
-# hypothesis_version: 6.150.0
-
-['AsyncConnectionPool', 'AsyncHTTP2Connection', 'AsyncHTTPConnection', 'AsyncHTTPProxy', 'AsyncSOCKSProxy']
