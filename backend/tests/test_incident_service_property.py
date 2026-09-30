@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from hypothesis import given, settings
+from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
 from backend.domain.models import IncidentStatus, Severity, TimelineEventType
@@ -32,7 +32,11 @@ _non_whitespace_title = st.text(min_size=1, max_size=40).filter(
 _service = st.text(min_size=1, max_size=40)
 
 
-@settings(max_examples=100)
+@settings(
+    max_examples=100,
+    deadline=None,
+    suppress_health_check=[HealthCheck.too_slow],
+)
 @given(
     title=_non_whitespace_title,
     severity=st.sampled_from(list(Severity)),

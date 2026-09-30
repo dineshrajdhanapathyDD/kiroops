@@ -28,8 +28,7 @@ from backend.domain.models import (
     TimelineEventType,
 )
 from backend.domain.status_machine import is_valid_transition
-from backend.repository.incident_repository import IncidentRepository
-from backend.repository.timeline_repository import TimelineRepository
+from backend.repository.factory import RepositoryBundle, build_sqlite
 from backend.service.errors import (
     InvalidTransitionError,
     NotFoundError,
@@ -60,12 +59,45 @@ class IncidentService:
 
     def __init__(
         self,
-        conn: sqlite3.Connection,
+        conn: sqlite3.Connection | None = None,
         now: Callable[[], datetime] = _default_now,
+        *,
+        repositories: RepositoryBundle | None = None,
     ) -> None:
-        self._incidents = IncidentRepository(conn)
-        self._timeline = TimelineRepository(conn)
+        """Compose the service over a repository bundle.
+
+        Backwards-compatible: passing a ``sqlite3.Connection`` (the original
+        signature) builds the SQLite bundle, so existing callers and tests keep
+        working unchanged. Alternatively pass a ready ``repositories`` bundle
+        from :mod:`backend.repository.factory` to run over any backend
+        (e.g. DynamoDB) without the service knowing which one.
+        """
+        bundle = self._resolve_bundle(conn, repositories)
+        self._incidents = bundle.incidents
+        self._timeline = bundle.timeline
         self._now = now
+
+    @staticmethod
+    def _resolve_bundle(
+        conn: sqlite3.Connection | None, repositories: RepositoryBundle | None
+    ) -> RepositoryBundle:
+        if repositories is not None:
+            return repositories
+        if conn is not None:
+            return build_sqlite(conn)
+        raise ValueError(
+            "IncidentService requires either a sqlite3.Connection or a "
+            "repositories bundle."
+        )
+
+    @classmethod
+    def from_repositories(
+        cls,
+        repositories: RepositoryBundle,
+        now: Callable[[], datetime] = _default_now,
+    ) -> "IncidentService":
+        """Build a service over an explicit repository bundle (any backend)."""
+        return cls(now=now, repositories=repositories)
 
     def create(self, title: str, severity: Severity, service: str) -> Incident:
         """Validate, persist, and record the creation of a new incident.

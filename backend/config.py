@@ -13,6 +13,8 @@ from dataclasses import dataclass
 
 # Environment variable names (single source of truth).
 ENV_DB_PATH = "KIROOPS_DB_PATH"
+ENV_PERSISTENCE = "KIROOPS_PERSISTENCE"
+ENV_DDB_TABLE = "KIROOPS_DDB_TABLE"
 ENV_LLM_MODEL_ID = "KIROOPS_LLM_MODEL_ID"
 ENV_LLM_ENDPOINT = "KIROOPS_LLM_ENDPOINT"
 ENV_LLM_REGION = "KIROOPS_LLM_REGION"
@@ -21,8 +23,17 @@ ENV_LLM_REGION = "KIROOPS_LLM_REGION"
 ENV_AWS_REGION = "AWS_REGION"
 ENV_AWS_DEFAULT_REGION = "AWS_DEFAULT_REGION"
 
+# Persistence backends selectable via KIROOPS_PERSISTENCE.
+PERSISTENCE_SQLITE = "sqlite"
+PERSISTENCE_DYNAMODB = "dynamodb"
+_VALID_PERSISTENCE = (PERSISTENCE_SQLITE, PERSISTENCE_DYNAMODB)
+
 # Non-secret defaults used when the environment does not provide a value.
 DEFAULT_DB_PATH = "kiroops.db"
+# Default persistence backend keeps existing behavior (and existing tests).
+DEFAULT_PERSISTENCE = PERSISTENCE_SQLITE
+# Default single-table DynamoDB table name (overridable per deployment).
+DEFAULT_DDB_TABLE = "kiroops"
 # Default to an Amazon Bedrock Nova cross-region inference profile id. Nova
 # models require an inference profile for on-demand invocation; the ``us.``
 # prefix selects the US cross-region profile. Override via KIROOPS_LLM_MODEL_ID
@@ -96,3 +107,55 @@ def get_db_path(env: dict[str, str] | None = None) -> str:
     """Return the configured SQLite database path (default ``kiroops.db``)."""
     source = os.environ if env is None else env
     return source.get(ENV_DB_PATH, DEFAULT_DB_PATH)
+
+
+def _resolve_region(source: dict[str, str]) -> str:
+    """Resolve the AWS region using the same precedence as ``LlmConfig``.
+
+    ``KIROOPS_LLM_REGION`` first, then the standard ``AWS_REGION`` /
+    ``AWS_DEFAULT_REGION`` variables, and finally the non-secret default.
+    """
+    return (
+        source.get(ENV_LLM_REGION)
+        or source.get(ENV_AWS_REGION)
+        or source.get(ENV_AWS_DEFAULT_REGION)
+        or DEFAULT_LLM_REGION
+    )
+
+
+def get_persistence(env: dict[str, str] | None = None) -> str:
+    """Return the selected persistence backend (``sqlite`` default).
+
+    Reads ``KIROOPS_PERSISTENCE``; the value is normalized to lower case. An
+    unrecognized value raises ``ValueError`` (a programmer/config error), per the
+    coding-standards "fail loudly on programmer errors" rule.
+    """
+    source = os.environ if env is None else env
+    value = source.get(ENV_PERSISTENCE, DEFAULT_PERSISTENCE).strip().lower()
+    if value not in _VALID_PERSISTENCE:
+        raise ValueError(
+            f"{ENV_PERSISTENCE} must be one of {_VALID_PERSISTENCE}, got {value!r}."
+        )
+    return value
+
+
+@dataclass(frozen=True)
+class DynamoConfig:
+    """Configuration for the DynamoDB persistence backend.
+
+    ``table_name`` and ``region`` are read from the environment so no table name
+    or region is hard-coded. ``region`` reuses the shared region resolution used
+    by the LLM boundary.
+    """
+
+    table_name: str
+    region: str
+
+    @classmethod
+    def from_env(cls, env: dict[str, str] | None = None) -> "DynamoConfig":
+        """Build a ``DynamoConfig`` from environment variables (with defaults)."""
+        source = os.environ if env is None else env
+        return cls(
+            table_name=source.get(ENV_DDB_TABLE, DEFAULT_DDB_TABLE),
+            region=_resolve_region(source),
+        )

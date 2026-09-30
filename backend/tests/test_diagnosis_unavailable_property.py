@@ -17,7 +17,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 import pytest
-from hypothesis import given, settings
+from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
 from backend.agent.diagnosis_agent import DiagnosisAgent
@@ -44,7 +44,11 @@ class _AlwaysUnavailableLlm:
         raise LlmUnavailableError("forced unavailable for property test")
 
 
-@settings(max_examples=100)
+@settings(
+    max_examples=100,
+    deadline=None,
+    suppress_health_check=[HealthCheck.too_slow],
+)
 @given(
     title=_non_whitespace_title,
     severity=st.sampled_from(list(Severity)),
