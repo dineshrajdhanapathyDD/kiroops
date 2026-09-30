@@ -25,7 +25,9 @@ from __future__ import annotations
 import sqlite3
 
 from fastapi import Depends, FastAPI, status
+from fastapi.middleware.cors import CORSMiddleware
 
+from backend import config
 from backend.agent.default_provider import build_default_provider
 from backend.agent.diagnosis_agent import DiagnosisAgent
 from backend.agent.provider import LlmProvider
@@ -41,6 +43,7 @@ from backend.api.models import (
 )
 from backend.mcp.client import SimulatedMcpClient
 from backend.repository import db
+from backend.repository.factory import RepositoryBundle, build_from_config
 from backend.service.diagnosis_service import DiagnosisService
 from backend.service.incident_service import IncidentService
 
@@ -59,6 +62,47 @@ def get_service() -> IncidentService:
 def get_diagnosis_service() -> DiagnosisService:
     """Dependency placeholder for the diagnosis service; bound in ``create_app``."""
     raise RuntimeError("DiagnosisService dependency is not configured.")
+
+
+def _build_services_for_persistence(
+    build_agent,
+) -> tuple[IncidentService, DiagnosisService]:
+    """Build both services for the configured persistence backend (no injection).
+
+    - ``sqlite`` (default): bootstrap a SQLite connection and build both services
+      over the single shared connection (unchanged historical behavior).
+    - ``dynamodb``: build a :class:`RepositoryBundle` from configuration and
+      construct both services from it. No SQLite connection is created, so this
+      path never touches ``db.bootstrap`` and needs no local database file.
+
+    ``build_agent`` is a zero-arg callable returning a fresh ``DiagnosisAgent``
+    (so the LLM boundary stays injectable via ``create_app(llm=...)``).
+    """
+    backend = config.get_persistence()
+    if backend == config.PERSISTENCE_DYNAMODB:
+        bundle: RepositoryBundle = build_from_config()
+        incident_service = IncidentService.from_repositories(bundle)
+        diagnosis_service = DiagnosisService.from_repositories(bundle, build_agent())
+        return incident_service, diagnosis_service
+
+    # SQLite default: one connection shared by both services.
+    connection = db.bootstrap()
+    return IncidentService(connection), DiagnosisService(connection, build_agent())
+
+
+def _configure_cors(app: FastAPI) -> None:
+    """Attach CORS middleware using the configured allowed origins.
+
+    Origins come from ``KIROOPS_CORS_ORIGINS`` (comma-separated) via
+    ``config.get_cors_origins`` and default to ``"*"`` for development; a
+    production deployment should set the CloudFront origin instead.
+    """
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=config.get_cors_origins(),
+        allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+        allow_headers=["*"],
+    )
 
 
 def create_app(
@@ -84,28 +128,53 @@ def create_app(
     Note: when a pre-built ``service`` is passed without ``conn`` or an explicit
     ``diagnosis_service``, its connection is reused to build the diagnosis
     service so both services stay on the same database.
+
+    Persistence selection: when none of ``service``/``conn``/
+    ``diagnosis_service`` is injected, the configured backend
+    (``config.get_persistence()``) decides how the services are built:
+
+    - ``sqlite`` (default): bootstrap a SQLite connection and build both
+      services over it (the historical behavior, kept byte-for-byte so existing
+      tests pass unchanged).
+    - ``dynamodb``: build a :class:`RepositoryBundle` from configuration and
+      construct both services from it via their ``from_repositories`` factories.
+      No SQLite connection is involved on this path.
     """
     if service is not None and conn is not None:
         raise ValueError("Pass either 'service' or 'conn', not both.")
 
-    connection: sqlite3.Connection
-    if service is None:
-        connection = conn if conn is not None else db.bootstrap()
-        service = IncidentService(connection)
-    else:
-        # Reuse the pre-built service's connection so the diagnosis service
-        # (built below when not injected) shares the same database.
-        connection = service._incidents._conn  # noqa: SLF001 (intentional reuse)
-
-    if diagnosis_service is None:
+    def _build_agent() -> DiagnosisAgent:
         provider = llm if llm is not None else build_default_provider()
-        agent = DiagnosisAgent(SimulatedMcpClient(), provider)
-        diagnosis_service = DiagnosisService(connection, agent)
+        return DiagnosisAgent(SimulatedMcpClient(), provider)
+
+    if service is None and conn is None and diagnosis_service is None:
+        # No injection: build against the configured persistence backend.
+        service, diagnosis_service = _build_services_for_persistence(_build_agent)
+    else:
+        # SQLite path: honor injected service/conn/diagnosis_service as before,
+        # sharing a single connection between both services.
+        connection: sqlite3.Connection
+        if service is None:
+            connection = conn if conn is not None else db.bootstrap()
+            service = IncidentService(connection)
+        else:
+            # Reuse the pre-built service's connection so the diagnosis service
+            # (built below when not injected) shares the same database.
+            connection = service._incidents._conn  # noqa: SLF001 (intentional reuse)
+
+        if diagnosis_service is None:
+            diagnosis_service = DiagnosisService(connection, _build_agent())
 
     app = FastAPI(title="KiroOps incident-management")
+    _configure_cors(app)
     app.state.incident_service = service
     app.state.diagnosis_service = diagnosis_service
     register_exception_handlers(app)
+
+    @app.get("/health")
+    def health() -> dict[str, str]:
+        """Lightweight liveness check for API Gateway/Lambda (no backend calls)."""
+        return {"status": "ok"}
 
     def _provide_service() -> IncidentService:
         return app.state.incident_service

@@ -29,6 +29,12 @@ dev = [
 bedrock = [
     "boto3>=1.34",
 ]
+# Optional: AWS Lambda adapter. Only the Lambda packaging/deploy needs this, so
+# it stays out of the core dependencies (the handler in backend.lambda_handler
+# imports it, and no test in the suite imports that module).
+lambda = [
+    "mangum>=0.17",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]

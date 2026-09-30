@@ -15,6 +15,7 @@ from dataclasses import dataclass
 ENV_DB_PATH = "KIROOPS_DB_PATH"
 ENV_PERSISTENCE = "KIROOPS_PERSISTENCE"
 ENV_DDB_TABLE = "KIROOPS_DDB_TABLE"
+ENV_CORS_ORIGINS = "KIROOPS_CORS_ORIGINS"
 ENV_LLM_MODEL_ID = "KIROOPS_LLM_MODEL_ID"
 ENV_LLM_ENDPOINT = "KIROOPS_LLM_ENDPOINT"
 ENV_LLM_REGION = "KIROOPS_LLM_REGION"
@@ -34,6 +35,9 @@ DEFAULT_DB_PATH = "kiroops.db"
 DEFAULT_PERSISTENCE = PERSISTENCE_SQLITE
 # Default single-table DynamoDB table name (overridable per deployment).
 DEFAULT_DDB_TABLE = "kiroops"
+# Default CORS allowed origins. "*" is a permissive development default; a real
+# deployment should set KIROOPS_CORS_ORIGINS to the CloudFront origin(s).
+DEFAULT_CORS_ORIGINS = "*"
 # Default to an Amazon Bedrock Nova cross-region inference profile id. Nova
 # models require an inference profile for on-demand invocation; the ``us.``
 # prefix selects the US cross-region profile. Override via KIROOPS_LLM_MODEL_ID
@@ -137,6 +141,20 @@ def get_persistence(env: dict[str, str] | None = None) -> str:
             f"{ENV_PERSISTENCE} must be one of {_VALID_PERSISTENCE}, got {value!r}."
         )
     return value
+
+
+def get_cors_origins(env: dict[str, str] | None = None) -> list[str]:
+    """Return the configured CORS allowed origins as a list.
+
+    Reads ``KIROOPS_CORS_ORIGINS`` (comma-separated) and defaults to ``["*"]``.
+    A production deployment should set this to the CloudFront origin(s) rather
+    than relying on the permissive default. Blank entries are dropped and each
+    origin is trimmed.
+    """
+    source = os.environ if env is None else env
+    raw = source.get(ENV_CORS_ORIGINS, DEFAULT_CORS_ORIGINS)
+    origins = [part.strip() for part in raw.split(",") if part.strip()]
+    return origins or [DEFAULT_CORS_ORIGINS]
 
 
 @dataclass(frozen=True)

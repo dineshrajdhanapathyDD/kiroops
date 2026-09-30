@@ -1,0 +1,541 @@
+{
+  "pbtResults": {
+    "2.3 Write property test for the status state machine": {
+      "status": "passed",
+      "lastRunTimestamp": 1790699534204
+    }
+  },
+  "executionHistory": {
+    "1.1 Create backend package layout and configuration": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698964874
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699041890
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699371644
+      }
+    ],
+    "1.2 Create SQLite connection/bootstrap helper": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698970007
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699045731
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699372963
+      }
+    ],
+    "2.1 Define enums and dataclasses": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698974479
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699383758
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699564480
+      }
+    ],
+    "2.2 Implement pure status state machine": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698979963
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699384745
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699565368
+      }
+    ],
+    "3. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698984484
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699575530
+      }
+    ],
+    "4.1 Implement IncidentRepository with INC-#### id generation": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698986394
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699601422
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699826783
+      }
+    ],
+    "4.3 Implement TimelineRepository (append-only)": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698989132
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699600267
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699829108
+      }
+    ],
+    "4.6 Implement DiagnosisRepository and RemediationRepository": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698995335
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699599322
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699832360
+      }
+    ],
+    "5. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790698999676
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699834453
+      }
+    ],
+    "6.1 Implement IncidentService create/list/get": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699016718
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699924340
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700135006
+      }
+    ],
+    "6.3 Implement IncidentService status update": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699017470
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699923677
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700136445
+      }
+    ],
+    "7.1 Implement request/response models": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699018346
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700162274
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700727265
+      }
+    ],
+    "7.2 Implement incident endpoints (create, list, get)": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699019123
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700163177
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700726372
+      }
+    ],
+    "7.3 Implement status endpoint and error envelope mapping": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699019662
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700164321
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700728825
+      }
+    ],
+    "8. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699020353
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700729927
+      }
+    ],
+    "9.1 Implement the four MCP tools with seeded simulated data": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699021233
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700774967
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701516322
+      }
+    ],
+    "9.2 Implement McpClient interface used by the agent": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699021667
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700774222
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701517556
+      }
+    ],
+    "10.1 Define LlmProvider protocol, LlmConfig, and result types": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699022195
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701566602
+      }
+    ],
+    "10.2 Implement DiagnosisAgent deterministic orchestration": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699022587
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701567771
+      }
+    ],
+    "10.5 Implement DiagnosisService and diagnosis endpoints": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699023065
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701568129
+      }
+    ],
+    "11. Checkpoint - Ensure all backend tests pass": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699023566
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790702220871
+      }
+    ],
+    "14. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699024556
+      },
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790702238009
+      }
+    ],
+    "1. Backend project scaffolding": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699373271
+      }
+    ],
+    "2. Domain model, enums, and pure status state machine": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699565575
+      }
+    ],
+    "2.3 Write property test for the status state machine": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699566263
+      }
+    ],
+    "2.4 Write unit tests for enums and models": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699567252
+      }
+    ],
+    "4.2 Write property test for incident ID format, uniqueness, and monotonicity": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699828172
+      }
+    ],
+    "4.4 Write property test for append-only timeline": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699830464
+      }
+    ],
+    "4.5 Write property test for chronological timeline ordering": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699831454
+      }
+    ],
+    "4. Repository_Layer over SQLite": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699832518
+      }
+    ],
+    "4.7 Write unit tests for diagnosis and remediation repositories": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790699833762
+      }
+    ],
+    "6. Incident service and timeline policy": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700136590
+      }
+    ],
+    "6.2 Write property test for created incident persisted state": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700137384
+      }
+    ],
+    "6.4 Write unit tests for create validation and status update edge cases": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700139329
+      }
+    ],
+    "7.4 Write integration tests for incident endpoints and error table": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700725367
+      }
+    ],
+    "7. Backend API layer and error handling": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790700729264
+      }
+    ],
+    "9.3 Write unit tests for MCP tool output shapes": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701515886
+      }
+    ],
+    "9. MCP_Server with simulated evidence tools": [
+      {
+        "executionId": "c964d630-ae47-4dcd-910a-cd4fb1c4facb",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790701517892
+      }
+    ],
+    "13.1 Define shared types": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790704390377
+      },
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705030104
+      }
+    ],
+    "13.2 Implement services layer": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790704391152
+      },
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705029130
+      }
+    ],
+    "13.6 Write frontend component tests": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705025179
+      }
+    ],
+    "13. Frontend (TypeScript / React) (optional / later)": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705025538
+      }
+    ],
+    "13.5 Implement IncidentDetailPage": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705026000
+      }
+    ],
+    "13.4 Implement IncidentListPage": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705027220
+      }
+    ],
+    "13.3 Implement CreateIncidentPage": [
+      {
+        "executionId": "369b4d11-1060-45d1-8fbf-cc250ad85dec",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790705028240
+      }
+    ],
+    "12.1 Implement Bedrock/Anthropic-backed LlmProvider": [
+      {
+        "executionId": "ddc58b35-5dd4-4594-adc1-08f8e0e6ff57",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790707139664
+      },
+      {
+        "executionId": "ddc58b35-5dd4-4594-adc1-08f8e0e6ff57",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790707493731
+      }
+    ],
+    "12.2 Write smoke test for provider construction from config": [
+      {
+        "executionId": "ddc58b35-5dd4-4594-adc1-08f8e0e6ff57",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790707492624
+      }
+    ],
+    "12. Real LLM provider integration (optional / later)": [
+      {
+        "executionId": "ddc58b35-5dd4-4594-adc1-08f8e0e6ff57",
+        "chatSessionId": "sess_4874b864-164f-42bc-a496-e2a0aaf926be",
+        "timestamp": 1790707492879
+      }
+    ]
+  }
+}
