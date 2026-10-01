@@ -76,6 +76,18 @@ Configuration is read from the environment (no secrets in source):
 | POST | `/incidents/{id}/diagnosis` | Request an AI diagnosis (503 if the LLM is unavailable) |
 | GET | `/incidents/{id}/remediation-actions` | List recommended remediation actions |
 
+## Deploying to AWS (Lambda + API Gateway + DynamoDB)
+
+KiroOps runs serverless in the cloud: an HTTP API Gateway fronts a single
+Lambda function (the FastAPI app wrapped by Mangum), with **DynamoDB** as the
+cloud persistence backend and **Amazon Bedrock Nova** powering live diagnosis.
+Local development stays on SQLite, so nothing about the local workflow changes.
+
+The AWS CDK v2 (Python) app lives in [`infra/`](infra/README.md). It is
+infrastructure-as-code only and does not deploy automatically. See
+[`infra/README.md`](infra/README.md) for prerequisites, install, `cdk synth`,
+`cdk deploy`, and the required Bedrock model-access note.
+
 ## Status
 
 Backend, MCP server, and diagnosis agent are complete with all six correctness

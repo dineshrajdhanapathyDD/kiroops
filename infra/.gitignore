@@ -1,0 +1,9 @@
+# CDK synthesized output
+cdk.out/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtualenv
+.venv/
