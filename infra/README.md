@@ -1,7 +1,22 @@
-# KiroOps Backend Infrastructure (AWS CDK v2, Python)
+# KiroOps Infrastructure (AWS CDK v2, Python)
 
-This directory contains an AWS CDK v2 app (Python) that provisions the KiroOps
-serverless backend:
+This directory contains an AWS CDK v2 app (Python) with two independent stacks:
+
+- `KiroopsBackendStack` - the serverless backend (below).
+- `KiroopsFrontendStack` - static hosting for the React SPA on S3 + CloudFront
+  (see "Frontend hosting (S3 + CloudFront)" near the end).
+
+Deploy them individually or together:
+
+```
+cdk deploy KiroopsBackendStack      # backend only
+cdk deploy KiroopsFrontendStack     # frontend only
+cdk deploy --all                    # both
+```
+
+## Backend stack
+
+The `KiroopsBackendStack` provisions the KiroOps serverless backend:
 
 - **DynamoDB** single-table (PK/SK) with a `GSI1` secondary index, on-demand
   billing, and point-in-time recovery.
@@ -117,3 +132,92 @@ in-time recovery is also enabled for additional durability.
 Local development stays on **SQLite** (`KIROOPS_PERSISTENCE` unset defaults to
 `sqlite`); this stack sets `KIROOPS_PERSISTENCE=dynamodb` only in the deployed
 Lambda environment. The backend code and tests are unchanged by this app.
+
+## Frontend hosting (S3 + CloudFront)
+
+The `KiroopsFrontendStack` serves the Vite + React SPA from a **private** S3
+bucket behind a CloudFront distribution. The two stacks are independent: there
+is no cross-stack reference. The frontend learns the backend URL at **build
+time** through `VITE_API_BASE_URL`, which you set from the backend stack's
+`ApiEndpoint` output.
+
+### Deploy order
+
+1. **Deploy the backend and note its API URL.**
+
+   ```
+   cd infra
+   cdk deploy KiroopsBackendStack
+   ```
+
+   Copy the `ApiEndpoint` value from the stack Outputs.
+
+2. **Build the frontend against that API URL.** The build must exist before the
+   frontend stack deploys (the bucket upload reads `frontend/dist`).
+
+   ```
+   cd ../frontend
+   # Windows (PowerShell):  $env:VITE_API_BASE_URL="https://abc123.execute-api.us-east-1.amazonaws.com"
+   # macOS/Linux:           export VITE_API_BASE_URL="https://abc123.execute-api.us-east-1.amazonaws.com"
+   npm install
+   npm run build        # outputs frontend/dist/
+   ```
+
+3. **Deploy the frontend stack.**
+
+   ```
+   cd ../infra
+   cdk deploy KiroopsFrontendStack
+   ```
+
+   Read the Outputs:
+
+   - `SiteUrl` - the `https://` CloudFront URL for the app.
+   - `DistributionDomainName` - the CloudFront domain (host only).
+   - `SiteBucketName` - the S3 bucket holding the built assets.
+
+### The `frontend/dist` must-exist requirement
+
+The `BucketDeployment` that uploads the site is **guarded on the existence of
+`frontend/dist`**:
+
+- If `frontend/dist` exists at synth time, the stack adds the deployment and
+  invalidates the CloudFront distribution (`distribution_paths=["/*"]`) so the
+  new build is served immediately.
+- If `frontend/dist` is **missing** (you have not run `npm run build`), the
+  stack **skips** the deployment and emits a build-first warning. This keeps
+  `cdk synth` working without a build, but a `cdk deploy` in that state creates
+  the bucket and distribution with **no uploaded content**. Build first, then
+  deploy, to populate the site.
+
+### Design notes
+
+- **Private bucket + Origin Access Control (OAC).** The bucket blocks all
+  public access (`BLOCK_ALL`), uses S3-managed encryption, and enforces SSL.
+  CloudFront reaches it through OAC via
+  `S3BucketOrigin.with_origin_access_control(bucket)` (available in
+  aws-cdk-lib >= 2.156; the installed version satisfies this, so OAC is used
+  rather than a legacy Origin Access Identity). The bucket is never public.
+- **SPA error-response mapping.** CloudFront maps both `403` and `404` to
+  `/index.html` with a `200` response code, so client-side React Router deep
+  links resolve instead of returning an error for a key that is not a real S3
+  object.
+- **RETAIN removal policy.** The bucket uses `RemovalPolicy.RETAIN`: deleting
+  the stack leaves the bucket and its objects in place (it is not auto-emptied).
+  A static-site bucket is low-risk, but RETAIN avoids surprise data loss; delete
+  it manually if you truly no longer need it.
+- **Price class.** The distribution uses `PriceClass.PRICE_CLASS_100` (North
+  America + Europe edge locations), the cheapest tier. Raise it if you need
+  edge presence in other regions.
+
+### CORS in production
+
+Set the backend's `KIROOPS_CORS_ORIGINS` to the CloudFront domain so the browser
+app is allowed to call the API. On the backend stack:
+
+```
+cdk deploy KiroopsBackendStack -c corsOrigins=https://<DistributionDomainName>
+```
+
+Using `*` is fine for local development, but production should scope CORS to the
+exact CloudFront origin.
