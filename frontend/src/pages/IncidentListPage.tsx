@@ -46,7 +46,7 @@ export function IncidentListPage({
   }, [load, reloadKey]);
 
   if (loading) {
-    return <p>Loading incidents…</p>;
+    return <p>Loading incidentsâ€¦</p>;
   }
   if (error) {
     return <p role="alert">{error}</p>;
@@ -80,9 +80,9 @@ export function IncidentListPage({
                   </button>
                 </td>
                 <td>{incident.title}</td>
-                <td>{incident.severity}</td>
+                <td><span className={`badge sev-${incident.severity}`}>{incident.severity}</span></td>
                 <td>{incident.service}</td>
-                <td>{incident.status}</td>
+                <td><span className={`badge status-${incident.status}`}>{incident.status}</span></td>
               </tr>
             ))}
           </tbody>

@@ -2,7 +2,7 @@
  * App shell (Task 13, composition).
  *
  * Minimal client-side view switching between the create, list, and detail
- * pages — no router dependency to keep the app lean. State here is limited to
+ * pages â€” no router dependency to keep the app lean. State here is limited to
  * which view is active and the selected incident id; all data-loading lives in
  * the page components via the services layer.
  */
@@ -27,7 +27,7 @@ export function App(): JSX.Element {
 
   return (
     <main>
-      <header>
+      <header className="app-header">
         <h1>KiroOps</h1>
         <nav aria-label="Primary">
           <button type="button" onClick={() => setView({ name: "list" })}>

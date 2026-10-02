@@ -6,6 +6,19 @@ severity); KiroOps tracks it through a constrained lifecycle, gathers evidence
 through a custom MCP server, produces an AI diagnosis with recommended
 remediation actions, and maintains an append-only incident timeline.
 
+## Live Demo (deployed on AWS)
+
+- Frontend (CloudFront): https://d2k4ginzxvtoqs.cloudfront.net
+- API (API Gateway): https://9gjx9zin9g.execute-api.us-east-1.amazonaws.com
+- API health check: https://9gjx9zin9g.execute-api.us-east-1.amazonaws.com/health
+
+Serverless stack in `us-east-1`: API Gateway -> AWS Lambda (FastAPI via Mangum,
+ARM64/Graviton) -> DynamoDB (single-table), with the React SPA on S3 served
+through CloudFront. Amazon Bedrock Nova powers AI diagnosis (enable Nova model
+access in the Bedrock console for live diagnosis; otherwise the diagnosis
+endpoint returns 503 by design). Infrastructure is defined as code in `infra/`
+(AWS CDK, Python).
+
 ## Kiro University Lesson Mapping
 
 | Lesson | Feature | Evidence (path) |

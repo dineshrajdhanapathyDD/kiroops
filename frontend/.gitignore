@@ -18,3 +18,7 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# Local environment build config (set per-deploy)
+.env.production
+.env.local

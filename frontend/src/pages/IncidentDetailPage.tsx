@@ -43,7 +43,7 @@ function TimelineList({ events }: { events: TimelineEvent[] }): JSX.Element {
       {events.map((event, index) => (
         <li key={`${event.timestamp}-${index}`}>
           <span data-testid="timeline-type">{event.type}</span>
-          {" — "}
+          {" â€” "}
           <time dateTime={event.timestamp}>{event.timestamp}</time>
           {formatDetails(event.details) ? (
             <> ({formatDetails(event.details)})</>
@@ -156,7 +156,7 @@ export function IncidentDetailPage({
   }
 
   if (loading) {
-    return <p>Loading incident…</p>;
+    return <p>Loading incidentâ€¦</p>;
   }
   if (error) {
     return <p role="alert">{error}</p>;
@@ -175,7 +175,7 @@ export function IncidentDetailPage({
 
       <dl>
         <dt>Status</dt>
-        <dd data-testid="current-status">{detail.status}</dd>
+        <dd data-testid="current-status"><span className={`badge status-${detail.status}`}>{detail.status}</span></dd>
         <dt>Severity</dt>
         <dd>{detail.severity}</dd>
         <dt>Service</dt>
@@ -217,7 +217,7 @@ export function IncidentDetailPage({
           disabled={diagnosing}
           onClick={handleRequestDiagnosis}
         >
-          {diagnosing ? "Requesting…" : "Request Diagnosis"}
+          {diagnosing ? "Requestingâ€¦" : "Request Diagnosis"}
         </button>
         {diagnosisError ? <p role="alert">{diagnosisError}</p> : null}
         {diagnosis ? <DiagnosisView diagnosis={diagnosis} /> : null}
