@@ -107,3 +107,7 @@ Backend, MCP server, and diagnosis agent are complete with all six correctness
 properties covered by passing property-based tests. The real Bedrock/Anthropic
 LLM provider and the React frontend are optional later work; the core runs and
 is fully tested with a stubbed model boundary.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
