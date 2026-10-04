@@ -34,6 +34,12 @@ endpoint returns 503 by design). Infrastructure is defined as code in `infra/`
 A detailed index, including which test file backs each of the six correctness
 properties, is in `docs/lesson-mapping.md`.
 
+## Documentation
+
+- [Article](docs/article.md) - how KiroOps was built, the tech stack, pricing, problems faced, and lessons learned.
+- [Walkthrough](docs/walkthrough.md) - a visual, step-by-step tour of the live app with screenshots, each mapped to a lesson.
+- [Lesson mapping](docs/lesson-mapping.md) - detailed index of where each lesson lives, including which test backs each correctness property.
+- [Demo script](docs/demo-script.md) - a timed 3-minute walkthrough for the submission video.
 ## Architecture
 
 ```
