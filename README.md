@@ -19,6 +19,25 @@ access in the Bedrock console for live diagnosis; otherwise the diagnosis
 endpoint returns 503 by design). Infrastructure is defined as code in `infra/`
 (AWS CDK, Python).
 
+## Screenshots
+
+Incident dashboard - all incidents from DynamoDB with color-coded severity and status badges:
+
+![Incident dashboard](docs/screenshots/01-incident-list.png)
+
+Create an incident - validated form (unique INC-#### id, status OPEN on create):
+
+![Create incident](docs/screenshots/02-create-incident.png)
+
+Incident detail - current status, append-only timeline, and valid-next-state controls:
+
+![Incident detail](docs/screenshots/03-incident-detail.png)
+
+AI diagnosis - evidence-based diagnosis from Amazon Bedrock Nova via the MCP-fed agent, with remediation actions:
+
+![AI diagnosis](docs/screenshots/04-ai-diagnosis.png)
+
+See [docs/walkthrough.md](docs/walkthrough.md) for the full step-by-step tour (including the GitHub repo and `.kiro` folder).
 ## Kiro University Lesson Mapping
 
 | Lesson | Feature | Evidence (path) |
