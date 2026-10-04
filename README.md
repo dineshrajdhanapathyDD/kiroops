@@ -43,7 +43,9 @@ properties, is in `docs/lesson-mapping.md`.
 - [Architecture diagram](docs/architecture.drawio) - editable draw.io / diagrams.net diagram of the full system.
 ## Architecture
 
+<img width="1492" height="991" alt="kiroops drawio" src="https://github.com/user-attachments/assets/3fd07697-9948-4ab9-a00c-3db93a1bcbf3" />
 An editable diagram is in [docs/architecture.drawio](docs/architecture.drawio) (open with draw.io / diagrams.net or the VS Code Draw.io extension).
+
 
 ```
 Frontend (React/TypeScript)          [optional/later]
