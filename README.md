@@ -40,7 +40,10 @@ properties, is in `docs/lesson-mapping.md`.
 - [Walkthrough](docs/walkthrough.md) - a visual, step-by-step tour of the live app with screenshots, each mapped to a lesson.
 - [Lesson mapping](docs/lesson-mapping.md) - detailed index of where each lesson lives, including which test backs each correctness property.
 - [Demo script](docs/demo-script.md) - a timed 3-minute walkthrough for the submission video.
+- [Architecture diagram](docs/architecture.drawio) - editable draw.io / diagrams.net diagram of the full system.
 ## Architecture
+
+An editable diagram is in [docs/architecture.drawio](docs/architecture.drawio) (open with draw.io / diagrams.net or the VS Code Draw.io extension).
 
 ```
 Frontend (React/TypeScript)          [optional/later]
