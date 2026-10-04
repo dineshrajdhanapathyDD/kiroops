@@ -138,6 +138,14 @@ properties covered by passing property-based tests. The real Bedrock/Anthropic
 LLM provider and the React frontend are optional later work; the core runs and
 is fully tested with a stubbed model boundary.
 
+## Contributing
+
+Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for
+local setup, the branch and pull-request workflow, and code conventions. In
+short: fork, branch, add tests (including property-based tests for any
+invariant you touch), make sure the backend and frontend suites pass, then open
+a pull request. The project is spec-driven and test-first - the `.kiro/` folder
+and `docs/lesson-mapping.md` explain the structure.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
