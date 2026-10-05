@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "incident-mcp": {
-      "command": "py",
+      "command": "python",
       "args": ["mcp/incident-mcp/server.py"],
       "disabled": false,
       "autoApprove": [
