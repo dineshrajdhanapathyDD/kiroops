@@ -26,6 +26,9 @@ Live demo:
 
 Repo: https://github.com/dineshrajdhanapathyDD/kiroops
 
+The KiroOps dashboard, lists incidents from DynamoDB with color-coded severity and status:
+
+![KiroOps incident dashboard](screenshots/01-incident-list.png)
 ## How I built it
 
 I deliberately did not start by asking the agent to "build an incident app." I
@@ -84,6 +87,11 @@ deterministic (gather evidence -> build prompt -> call model -> parse); only the
 model call itself is non-deterministic, which keeps the whole flow testable with
 a stubbed provider.
 
+
+The deployed app producing a live, evidence-based diagnosis from Amazon Bedrock Nova, with remediation actions:
+
+![AI diagnosis from Bedrock Nova](screenshots/04-ai-diagnosis.png)
+
 ### 7. Hooks and the Power (Lessons 3 and 5)
 
 Hooks in `.kiro/hooks/` run lint and tests automatically on file save. The
@@ -101,6 +109,14 @@ DynamoDB for persistence, a Lambda running the FastAPI app via Mangum, an HTTP
 API Gateway, and the React build on S3 behind CloudFront. Live diagnosis against
 Nova was verified end to end on the deployed stack.
 
+
+Creating an incident (validated form; unique INC-#### id, status OPEN on create):
+
+![Create incident form](screenshots/02-create-incident.png)
+
+Incident detail, current status, append-only timeline, and valid-next-state controls:
+
+![Incident detail and timeline](screenshots/03-incident-detail.png)
 ## Technology stack
 
 Backend
@@ -221,6 +237,12 @@ Real build, real friction. The honest list:
   in a repository layer, swapping SQLite for DynamoDB touched only that layer -
   not the service, API, or agent code.
 
+
+The public repository and the `.kiro` folder that holds the lesson evidence (spec, steering, hooks, agent, MCP settings):
+
+![Public GitHub repository](screenshots/05-github-repo.png)
+
+![The .kiro configuration folder](screenshots/06-kiro-folder.png)
 ## Conclusion
 
 KiroOps started as a way to demonstrate seven Kiro lessons and ended up as a
